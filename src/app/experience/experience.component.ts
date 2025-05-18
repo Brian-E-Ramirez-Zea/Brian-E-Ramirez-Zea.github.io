@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common'; // For *ngFor
   standalone: true,
   imports: [CommonModule], // Add for directives like *ngFor
   templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.scss']
+  styleUrls: ['./experience.component.css']
 })
 export class ExperienceComponent {
   jobs = [
