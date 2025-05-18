@@ -1,0 +1,9 @@
+/* src/app/experience/experience.component.scss */
+.experience {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.job {
+  margin-bottom: 20px;
+}

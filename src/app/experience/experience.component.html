@@ -1,0 +1,11 @@
+<!-- src/app/experience/experience.component.html -->
+<section class="experience">
+  <h2>Experience</h2>
+  <div *ngFor="let job of jobs" class="job">
+    <h3>{{ job.title }} | {{ job.company }}</h3>
+    <p>{{ job.dates }}</p>
+    <ul>
+      <li *ngFor="let task of job.tasks">{{ task }}</li>
+    </ul>
+  </div>
+</section>
