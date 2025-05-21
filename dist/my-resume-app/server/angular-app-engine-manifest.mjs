@@ -1,6 +1,6 @@
 
 export default {
-  basePath: '/Brian-E-Ramirez-Zea.github.io',
+  basePath: '/',
   supportedLocales: {
   "en-US": ""
 },

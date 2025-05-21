@@ -2,13 +2,13 @@
 export default {
   bootstrap: () => import('./main.server.mjs').then(m => m.default),
   inlineCriticalCss: true,
-  baseHref: '/Brian-E-Ramirez-Zea.github.io/',
+  baseHref: '/',
   locale: undefined,
   routes: undefined,
   entryPointToBrowserMapping: {},
   assets: {
-    'index.csr.html': {size: 5150, hash: '9c7a472a0f275b099e6dfaf9b80a0a8a627e3c1abb93fe47c2e2a7b1eb9cd417', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 1039, hash: '589a0676004e9a9003eca692ebe57b772b545bf93401c350e5f1b18c6f7b632c', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 5120, hash: '8b3fcd9ca525cb85ef1a4081b286df5601229f4d30f23e59cc6b695433ab5234', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 1009, hash: '7b7e21592c36a14e1b1e3ac5790705fb174b6bbb23aac24d335781f8ad0da2b6', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
     'styles-HRVUD5YO.css': {size: 231059, hash: 'Ud20Z/uPlIQ', text: () => import('./assets-chunks/styles-HRVUD5YO_css.mjs').then(m => m.default)}
   },
 };

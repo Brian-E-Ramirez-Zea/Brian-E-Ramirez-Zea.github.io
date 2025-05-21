@@ -1,0 +1,22 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+header h1 {
+  text-align: center;
+  color: #333;
+}
+section {
+  margin: 20px 0;
+}
+h2 {
+  color: #444;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
