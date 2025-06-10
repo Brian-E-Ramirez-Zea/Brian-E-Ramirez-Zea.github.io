@@ -1,0 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+.resume-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+.header {
+  text-align: center;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+.header p {
+  margin: 5px 0;
+}
+.section-title {
+  font-size: 1.5em;
+  color: #007bff;
+  margin-top: 20px;
+}
+.job,
+.education {
+  margin-bottom: 20px;
+}
+.job h4,
+.education h4 {
+  margin: 0;
+  font-size: 1.2em;
+}
+.job p,
+.education p {
+  margin: 5px 0;
+}
+.skills ul {
+  list-style: none;
+  padding: 0;
+}
+.skills li {
+  display: inline-block;
+  background: #f8f9fa;
+  padding: 8px 15px;
+  margin: 5px;
+  border-radius: 5px;
+}
+.contact p {
+  margin: 5px 0;
+}
+.download-btn {
+  margin: 20px auto;
+  display: block;
+}
