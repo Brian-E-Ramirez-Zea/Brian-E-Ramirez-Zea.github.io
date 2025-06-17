@@ -1,31 +1,40 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Brian's Resume</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarMenu" aria-controls="offcanvasNavbarMenu" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav" style="list-style: none; padding-left: 0;">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/">Home</a>
-        </li>
-        <li class="nav-item separator">•</li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/about">About</a>
-        </li>
-        <li class="nav-item separator">•</li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/experience">Experience</a>
-        </li>
-        <li class="nav-item separator">•</li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/projects">Projects</a>
-        </li>
-        <li class="nav-item separator">•</li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/contact">Contact</a>
-        </li>
-      </ul>
+    
+
+    <!-- Offcanvas Menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarMenu" aria-labelledby="offcanvasNavbarMenuLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarMenuLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" style="list-style: none; padding-left: 0;">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" data-bs-dismiss="offcanvas">Home</a>
+          </li>
+          <li class="nav-item separator">•</li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about" data-bs-dismiss="offcanvas">About</a>
+          </li>
+          <li class="nav-item separator">•</li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/experience" data-bs-dismiss="offcanvas">Experience</a>
+          </li>
+          <li class="nav-item separator">•</li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/projects" data-bs-dismiss="offcanvas">Projects</a>
+          </li>
+          <li class="nav-item separator">•</li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact" data-bs-dismiss="offcanvas">Contact</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
