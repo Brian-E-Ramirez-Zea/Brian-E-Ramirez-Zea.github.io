@@ -38,6 +38,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Your angular.json specifies outputPath: "dist/my-resume-app".
           # For SSR-enabled Angular apps, the client-side files are typically in a 'browser' subfolder.
-          publish_dir: ./dist/my-resume-app/browser
+          publish_dir: ./dist/my-resume-app
           # Optional: If you use a custom domain, create a repository variable named CNAME with your domain.
           # cname: ${{ vars.CNAME || '' }}
