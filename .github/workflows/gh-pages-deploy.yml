@@ -36,8 +36,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Your angular.json specifies outputPath: "dist/my-resume-app".
-          # Since prerender is false, files are directly in dist/my-resume-app.
-          publish_dir: ./dist/my-resume-app
+          # Your angular.json specifies outputPath: "dist/my-resume-app", but the application builder
+          # places the output in a "browser" subdirectory.
+          publish_dir: ./dist/my-resume-app/browser
           # Optional: If you use a custom domain, create a repository variable named CNAME with your domain.
           # cname: ${{ vars.CNAME || '' }}
