@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Brian's Resume</a>
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <img src="assets/family_seal.ico" alt="Brand Logo" width="30" height="30" class="me-2">
+      <!-- <span>Brian's Resume</span> -->
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarMenu" aria-controls="offcanvasNavbarMenu" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,3 +42,4 @@
   </div>
 </nav>
 <router-outlet></router-outlet>
+<app-chatbot></app-chatbot>
