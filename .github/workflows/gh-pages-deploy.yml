@@ -6,9 +6,7 @@ on:
       - main # Or your default branch
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write # Allows the action to push to the gh-pages branch
 
 jobs:
   build-and-deploy:
