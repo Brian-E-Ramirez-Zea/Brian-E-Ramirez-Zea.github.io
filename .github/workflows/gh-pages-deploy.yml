@@ -32,7 +32,7 @@ jobs:
         # The --configuration production flag ensures a production build.
         # The base href from src/index.html (which is "/") will be used,
         # which is correct for a GitHub user/organization page (username.github.io).
-        run: npm run build --configuration production
+        run: npm run build -- --configuration production
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
