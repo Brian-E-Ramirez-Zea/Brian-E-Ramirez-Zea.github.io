@@ -48,7 +48,11 @@ export class ChatbotComponent implements AfterViewInit {
     this.userInput = ''; // Clear the input field
 
     // Call the Netlify function backend
-    this.http.post<{ reply: string }>('/.netlify/functions/chat', { message: userMessage })
+    const url = environment.production
+      ? 'https://monumental-blini-d51964.netlify.app/.netlify/functions/chat'
+      : '/.netlify/functions/chat';
+
+    this.http.post<{ reply: string }>(url, { message: userMessage })
       .subscribe({
         next: (response) => {
           this.addBotMessage(response.reply);
