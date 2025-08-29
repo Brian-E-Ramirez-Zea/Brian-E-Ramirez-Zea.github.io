@@ -2,14 +2,27 @@ import type { Handler, HandlerEvent, HandlerContext } from "@netlify/functions";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  console.log("--- Netlify function 'chat' started ---");
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+  };
+
+  // Handle preflight CORS request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: corsHeaders,
+      body: JSON.stringify({ message: 'CORS preflight successful' })
+    };
+  }
 
   // 1. Only accept POST requests
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
       body: JSON.stringify({ error: 'Method Not Allowed' }),
-      headers: { 'Allow': 'POST' }
+      headers: { ...corsHeaders, 'Allow': 'POST' }
     };
   }
 
@@ -19,6 +32,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Missing request body' }),
+        headers: corsHeaders,
       };
     }
     const { message: userMessage } = JSON.parse(event.body);
@@ -26,6 +40,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       return {
         statusCode: 400,
         body: JSON.stringify({ error: 'Missing message in request body' }),
+        headers: corsHeaders,
       };
     }
     console.log("2. Received user message:", userMessage);
@@ -37,6 +52,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       return {
         statusCode: 500,
         body: JSON.stringify({ reply: 'Sorry, the API key is missing.' }),
+        headers: corsHeaders,
       };
     }
     console.log("3. API key found.");
@@ -74,7 +90,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     return {
       statusCode: 200,
       body: JSON.stringify({ reply: botResponse }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     };
 
   } catch (error) {
@@ -83,6 +99,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "An internal server error occurred." }),
+      headers: corsHeaders,
     };
   }
 };
