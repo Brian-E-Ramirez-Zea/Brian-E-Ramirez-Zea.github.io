@@ -4,61 +4,72 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   console.log("--- Netlify function 'chat' started ---");
 
-  // 1. Check for API Key
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    console.error("--- ERROR: 'GEMINI_KEY' not found in environment variables. ---");
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "API key is not set in Netlify." }),
-    };
-  }
-  console.log("1. API key found.");
-
-  // 2. Check HTTP Method
-  if (event.httpMethod !== "POST") {
-    console.error(`--- ERROR: Incorrect HTTP method (${event.httpMethod}). Only POST is allowed. ---`);
+  // 1. Only accept POST requests
+  if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
-      body: JSON.stringify({ error: "Method Not Allowed" }),
+      body: JSON.stringify({ error: 'Method Not Allowed' }),
+      headers: { 'Allow': 'POST' }
     };
   }
-  console.log("2. Request is a POST request.");
 
   try {
-    // 3. Parse Body
-    const body = JSON.parse(event.body || "{}");
-    const userMessage = body.message;
-    if (!userMessage) {
-      console.error("--- ERROR: No message provided in the request body. ---");
+    // 2. Parse the request body
+    if (!event.body) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: "No message provided." }),
+        body: JSON.stringify({ error: 'Missing request body' }),
       };
     }
-    console.log(`3. Received user message: "${userMessage}"`);
+    const { message: userMessage } = JSON.parse(event.body);
+    if (!userMessage) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Missing message in request body' }),
+      };
+    }
+    console.log("2. Received user message:", userMessage);
 
-    // 4. Initialize Google AI
-    console.log("4. Initializing Google Generative AI...");
+    // 3. Get API Key from environment variables
     const apiKey = process.env['GEMINI_API_KEY'];
     if (!apiKey) {
+      console.error("---!!! GEMINI_API_KEY not found in environment variables. !!!---");
       return {
         statusCode: 500,
         body: JSON.stringify({ reply: 'Sorry, the API key is missing.' }),
       };
     }
+    console.log("3. API key found.");
+
+    // 4. Initialize Google Generative AI
+    console.log("4. Initializing Google Generative AI...");
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
     console.log("5. Google AI Initialized. Starting chat...");
 
     // 6. Send Message
-    const chat = model.startChat();
+    const chat = model.startChat({
+      history: [
+        {
+          role: "user",
+          parts: [{ text: "Hello, I have some questions about Brian." }],
+        },
+        {
+          role: "model",
+          parts: [{ text: "Hello! I'm an AI assistant with information about Brian Ramirez-Zea. I can answer questions about his skills, experience, and projects. What would you like to know?" }],
+        },
+      ],
+      generationConfig: {
+        maxOutputTokens: 100,
+      },
+    });
+
     const result = await chat.sendMessage(userMessage);
     const response = await result.response;
     const botResponse = response.text();
     console.log("6. Received response from Gemini.");
 
-    // 7. Return Response
+    // 7. Return the response
     console.log("7. Sending response back to client.");
     return {
       statusCode: 200,
