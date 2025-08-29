@@ -1,6 +1,8 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 // Define the structure for a single message
 interface Message {
@@ -19,6 +21,7 @@ export class ChatbotComponent implements AfterViewInit {
   isOpen = false;
   userInput = '';
   messages: Message[] = [];
+  private http = inject(HttpClient);
   
   // ViewChild to get access to the chat container element for scrolling
   @ViewChild('chatBody') private chatBodyContainer!: ElementRef;
@@ -44,11 +47,17 @@ export class ChatbotComponent implements AfterViewInit {
     this.addUserMessage(userMessage);
     this.userInput = ''; // Clear the input field
 
-    // Mock bot response for demonstration purposes
-    // This will be replaced with the actual Gemini API call later
-    setTimeout(() => {
-      this.addBotMessage(`This is a mock response to: "${userMessage}"`);
-    }, 1000);
+    // Call the Netlify function backend
+    this.http.post<{ reply: string }>('/.netlify/functions/chat', { message: userMessage })
+      .subscribe({
+        next: (response) => {
+          this.addBotMessage(response.reply);
+        },
+        error: (error) => {
+          console.error('Error calling chat function:', error);
+          this.addBotMessage('Sorry, I seem to be having trouble connecting. Please try again later.');
+        }
+      });
   }
 
   // Adds a user message to the messages array

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { ChatbotComponent } from './chatbot/chatbot.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, ChatbotComponent],
+  imports: [RouterOutlet, RouterLink, ChatbotComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

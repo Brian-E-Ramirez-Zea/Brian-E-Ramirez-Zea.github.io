@@ -1,0 +1,6 @@
+[build]
+  command = "ng build --configuration production"
+  publish = "dist/brian-e-ramirez-zea.github.io/browser"
+
+[functions]
+  directory = "netlify/functions"
