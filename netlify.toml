@@ -1,6 +1,6 @@
 [build]
   command = "ng build --configuration production"
-  publish = "dist/brian-e-ramirez-zea.github.io/browser"
+  publish = "dist/my-resume-app/browser"
 
 [functions]
   directory = "netlify/functions"
