@@ -1,15 +1,17 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { ContactComponent } from './contact/contact.component';
-import { ExperienceComponent } from './experience/experience.component';
-import { ProjectsComponent } from './projects/projects.component';
+import { PortfolioLayoutComponent } from './layouts/portfolio-layout/portfolio-layout.component';
+import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'experience', component: ExperienceComponent },
-  { path: 'projects', component: ProjectsComponent },
+  {
+    path: '',
+    component: PortfolioLayoutComponent,
+    loadChildren: () => import('./features/portfolio/portfolio.routes').then(m => m.PORTFOLIO_ROUTES)
+  },
+  {
+    path: 'dashboard',
+    component: DashboardLayoutComponent,
+    loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES)
+  },
   { path: '**', redirectTo: '' }
 ];
