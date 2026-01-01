@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../shared/services/theme.service';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -10,5 +11,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dashboard-layout.component.css'
 })
 export class DashboardLayoutComponent {
-  // Toggle logic can be added here if needed, or handled via Bootstrap JS
+  constructor(public themeService: ThemeService) {}
 }

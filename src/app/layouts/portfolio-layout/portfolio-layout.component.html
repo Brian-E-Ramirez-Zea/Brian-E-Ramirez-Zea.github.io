@@ -1,22 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg" [ngClass]="{'navbar-light bg-light': (themeService.theme$ | async) === 'light', 'navbar-dark bg-dark': (themeService.theme$ | async) === 'dark'}">
   <div class="container-fluid">
     <a class="navbar-brand d-flex align-items-center" routerLink="/">
       <img src="assets/family_seal.ico" alt="Brand Logo" width="30" height="30" class="me-2">
       <!-- <span>Brian's Resume</span> -->
     </a>
+    
+    <button class="btn btn-sm me-2 ms-auto d-lg-none" [ngClass]="{'btn-outline-dark': (themeService.theme$ | async) === 'light', 'btn-outline-light': (themeService.theme$ | async) === 'dark'}" (click)="themeService.toggleTheme()">
+      {{ (themeService.theme$ | async) === 'dark' ? '☀️' : '🌙' }}
+    </button>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarMenu" aria-controls="offcanvasNavbarMenu" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     
 
     <!-- Offcanvas Menu -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbarMenu" aria-labelledby="offcanvasNavbarMenuLabel">
+    <div class="offcanvas offcanvas-end" [ngClass]="{'text-bg-dark': (themeService.theme$ | async) === 'dark'}" tabindex="-1" id="offcanvasNavbarMenu" aria-labelledby="offcanvasNavbarMenuLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasNavbarMenuLabel">Menu</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close" [ngClass]="{'btn-close-white': (themeService.theme$ | async) === 'dark'}" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" style="list-style: none; padding-left: 0;">
+          <li class="nav-item d-none d-lg-block">
+             <button class="btn btn-sm me-2" [ngClass]="{'btn-outline-dark': (themeService.theme$ | async) === 'light', 'btn-outline-light': (themeService.theme$ | async) === 'dark'}" (click)="themeService.toggleTheme()">
+                {{ (themeService.theme$ | async) === 'dark' ? '☀️ Light' : '🌙 Dark' }}
+            </button>
+          </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/" data-bs-dismiss="offcanvas">Home</a>
           </li>

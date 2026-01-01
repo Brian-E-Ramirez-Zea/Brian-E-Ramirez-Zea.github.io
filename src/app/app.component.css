@@ -6,13 +6,13 @@
 }
 header h1 {
   text-align: center;
-  color: #ce0f0f;
+  /* color: #ce0f0f; */
 }
 section {
   margin: 20px 0;
 }
 h2 {
-  color: #0732b4;
+  /* color: #0732b4; */
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
 }

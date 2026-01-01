@@ -12,12 +12,17 @@
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <nav class="navbar navbar-expand-lg border-bottom" [ngClass]="{'navbar-light bg-light': (themeService.theme$ | async) === 'light', 'navbar-dark bg-dark': (themeService.theme$ | async) === 'dark'}">
             <div class="container-fluid">
                 <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0 align-items-center">
+                        <li class="nav-item">
+                            <button class="btn me-2" [ngClass]="{'btn-outline-dark': (themeService.theme$ | async) === 'light', 'btn-outline-light': (themeService.theme$ | async) === 'dark'}" (click)="themeService.toggleTheme()">
+                                {{ (themeService.theme$ | async) === 'dark' ? '☀️ Light' : '🌙 Dark' }}
+                            </button>
+                        </li>
                         <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
                         <li class="nav-item dropdown">
