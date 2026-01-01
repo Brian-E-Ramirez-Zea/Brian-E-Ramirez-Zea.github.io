@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Netlify Dev",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "netlify: dev",
+      "url": "http://localhost:8888"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",

@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild, AfterViewInit, ChangeDetectorRef, inj
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 // Define the structure for a single message
 interface Message {

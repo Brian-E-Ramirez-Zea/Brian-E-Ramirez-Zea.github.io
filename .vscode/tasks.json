@@ -19,7 +19,27 @@
           }
         }
       }
-      
+    },
+    {
+      "label": "netlify: dev",
+      "type": "shell",
+      "command": "netlify dev",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": [
+          {
+            "regexp": ".",
+            "file": 1,
+            "location": 2,
+            "message": 3
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Starting Netlify Dev",
+          "endsPattern": "Server now ready on"
+        }
+      }
     },
     {
       "type": "npm",
