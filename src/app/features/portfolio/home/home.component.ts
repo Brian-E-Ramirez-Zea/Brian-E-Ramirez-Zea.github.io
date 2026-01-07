@@ -13,34 +13,19 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild('resumeContainer', { static: false }) resumeContainer!: ElementRef;
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit: resumeContainer:', this.resumeContainer);
     if (!this.resumeContainer) {
-      console.error('ViewChild resumeContainer is undefined in ngAfterViewInit');
-      const fallbackElement = document.querySelector('#resumeContainer');
-      console.log('Fallback: document.querySelector("#resumeContainer"):', fallbackElement);
-    } else {
-      console.log('resumeContainer element:', this.resumeContainer.nativeElement);
+      console.error('Resume container not initialized');
     }
   }
 
   downloadPDF() {
-    console.log('downloadPDF called');
-    let element: HTMLElement | null = null;
-    
-    if (this.resumeContainer && this.resumeContainer.nativeElement) {
-      element = this.resumeContainer.nativeElement;
-    } else {
-      console.warn('ViewChild resumeContainer is undefined, falling back to document.querySelector');
-      element = document.querySelector('#resumeContainer');
-    }
+    const element = this.resumeContainer?.nativeElement;
 
     if (!element) {
-      console.error('Resume container not found in downloadPDF');
+      console.error('Resume content not found used viewChild');
       alert('Error: Resume content not found. Please try again.');
       return;
     }
-
-    console.log('Capturing element:', element);
 
     const opt = {
       margin: 10,

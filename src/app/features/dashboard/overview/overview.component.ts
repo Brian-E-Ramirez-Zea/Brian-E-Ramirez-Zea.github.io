@@ -4,7 +4,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { DashboardService, SystemStats } from '../services/dashboard.service';
 import { ThemeService } from '../../../shared/services/theme.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-overview',
@@ -16,8 +16,8 @@ import { Subscription } from 'rxjs';
 export class OverviewComponent implements OnInit, OnDestroy {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   
-  stats: SystemStats | null = null;
-  private sub!: Subscription;
+  systemStats$!: Observable<SystemStats>;
+  private statsSub!: Subscription;
   private themeSub!: Subscription;
 
   // Line Chart Data (CPU History)
@@ -63,10 +63,12 @@ export class OverviewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // 1. Subscribe to Data
-    this.sub = this.dashboardService.getSystemStats().subscribe(data => {
-      this.stats = data;
-      this.updateChart(data.cpuUsage);
+    // 1. Subscribe to Data Observable
+    this.systemStats$ = this.dashboardService.getSystemStats();
+    
+    // Subscribe to update chart (side effect)
+    this.statsSub = this.systemStats$.subscribe(stats => {
+      this.updateChart(stats.cpuUsage);
     });
 
     // 2. Subscribe to Theme Changes
@@ -120,7 +122,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.sub) this.sub.unsubscribe();
+    if (this.statsSub) this.statsSub.unsubscribe();
     if (this.themeSub) this.themeSub.unsubscribe();
   }
 }

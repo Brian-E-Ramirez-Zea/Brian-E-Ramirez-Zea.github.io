@@ -1,18 +1,12 @@
 <section class="experience container">
   <h2 class="mt-4">Experience</h2>
   <ul class="list-group">
-    <li class="list-group-item">
-      <strong>Freelance & Family Business Support</strong> (Ongoing)<br>
-      Digitized paper records into Excel/Word for family business, improving data organization and accessibility. Performed food service, deliveries, and household services including lawn care and cleaning. Also provided musical performances (guitar, violin, vocals) for income generation. Developed strong work ethic, communication, and adaptability skills.<br>
-      <strong>Skills:</strong> Data Management, Customer Service, Responsibility
-    </li>
-    <li class="list-group-item">
-      <strong>Peer Mentor – Advanced Programming Course</strong> (2023-2024)<br>
-      Mentored junior students in C++ game development, focusing on debugging, algorithm optimization, and best practices. Collaborated on code reviews and version control using Git, enhancing team collaboration and code quality.<br>
-      <strong>Technologies:</strong> C++, Git
-    </li>
-    <li class="list-group-item">
-      <strong>NES Game Developer</strong> (2024)<br>
-      Collaborated in a team to develop a custom NES game using 6502 Assembly. Handled low-level programming tasks including memory management, sprite rendering, and hardware I/O, contributing to engaging gameplay mechanics.<br>
-      <strong>Technologies:</strong> 6502 Assembly
-    </li>     
+    @for (exp of experiences; track exp.role) {
+      <li class="list-group-item">
+        <strong>{{ exp.role }}</strong> ({{ exp.duration }})<br>
+        {{ exp.description }}<br>
+        <strong>{{ exp.skillsLabel }}</strong> {{ exp.skills }}
+      </li>
+    }
+  </ul>
+</section>

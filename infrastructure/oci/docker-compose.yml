@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # 1. The Database
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: homelab
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - homelab-net
+
+  # 2. The API Server (Node.js)
+  # This exposes the DB to the web securely
+  api:
+    build: .
+    restart: always
+    ports:
+      - "3000:3000" # Expose API to the internet (Netlify connects here)
+    environment:
+      DB_HOST: db
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: homelab
+      API_KEY: ${API_KEY} # Secret key for the Pi to authenticate
+    depends_on:
+      - db
+    networks:
+      - homelab-net
+
+volumes:
+  db_data:
+
+networks:
+  homelab-net:

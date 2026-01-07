@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, timer, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, timer } from 'rxjs';
+import { switchMap, map, shareReplay } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 export interface SystemStats {
   cpuUsage: number;
@@ -7,25 +10,34 @@ export interface SystemStats {
   temperature: number;
   networkIn: number;
   networkOut: number;
+  timestamp?: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class DashboardService {
+  // Matches server.js endpoint: GET /api/stats/latest
+  private readonly API_URL = `${environment.apiUrl}/stats/latest`;
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  // Mock data stream simulating a Raspberry Pi 5
   getSystemStats(): Observable<SystemStats> {
-    return timer(0, 2000).pipe(
-      map(() => ({
-        cpuUsage: Math.floor(Math.random() * 30) + 10, // Random 10-40%
-        ramUsage: Math.floor(Math.random() * 20) + 40, // Random 40-60%
-        temperature: Math.floor(Math.random() * 10) + 45, // 45-55 C
-        networkIn: Math.floor(Math.random() * 1000), // kbps
-        networkOut: Math.floor(Math.random() * 500)  // kbps
-      }))
+    return timer(0, 5000).pipe(
+      switchMap(() => this.http.get<any>(this.API_URL)),
+      map(data => {
+        // Handle array response (if API returns list) or single object
+        const latest = Array.isArray(data) ? data[0] : data;
+        
+        // Map from DB column names (server.js) to Frontend Interface
+        return {
+          cpuUsage: latest.cpu_usage || 0,
+          ramUsage: latest.ram_usage || 0,
+          temperature: latest.temperature || 0,
+          networkIn: latest.network_in || 0,
+          networkOut: latest.network_out || 0,
+          timestamp: latest.timestamp
+        };
+      }),
+      shareReplay(1)
     );
   }
 }

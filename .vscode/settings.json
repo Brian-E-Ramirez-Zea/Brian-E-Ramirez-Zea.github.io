@@ -1,0 +1,9 @@
+{
+    "files.exclude": {
+        "**/.env": false
+    },
+    "search.exclude": {
+        "**/.env": false
+    },
+    "explorer.excludeGitIgnore": false
+}
